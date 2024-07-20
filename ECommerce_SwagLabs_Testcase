@@ -1,0 +1,30 @@
+import time
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://www.saucedemo.com/v1/")
+driver.maximize_window()
+driver.implicitly_wait(10)
+print(driver.title)
+driver.find_element(By.ID, 'user-name').send_keys("standard_user")
+driver.find_element(By.XPATH, "//input[@id='password']").send_keys(("secret_sauce"))
+driver.find_element(By.ID, 'login-button').click()
+time.sleep(1)
+driver.find_element(By.XPATH, "(//button[text()='ADD TO CART'])[1]").click()
+driver.find_element(By.XPATH, "//div[@id='shopping_cart_container']").click()
+time.sleep(2)
+driver.find_element(By.XPATH, "//a[text()='CHECKOUT']").click()
+driver.find_element(By.ID, 'first-name').send_keys("Mohit")
+driver.find_element(By.ID, 'last-name').send_keys("Dev")
+driver.find_element(By.ID, 'postal-code').send_keys("110093")
+time.sleep(2)
+driver.find_element(By.XPATH, "//input[@value='CONTINUE']").click()
+time.sleep(2)
+Price = driver.find_element(By.XPATH, "//div[@class='summary_total_label']").text
+print(Price)
+driver.find_element(By.LINK_TEXT, 'FINISH').click()
+driver.find_element(By.XPATH, "//button[text()='Open Menu']").click()
+driver.find_element(By.LINK_TEXT, 'Logout').click()
+driver.quit()
